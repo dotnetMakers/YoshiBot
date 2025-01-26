@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meadow.Logging", "..\..\..\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meadow.Units", "..\..\..\wilderness\Meadow.Units\Source\Meadow.Units\Meadow.Units.csproj", "{7F19BCBF-C0AC-4AD1-AB3A-1E828FCC1AE2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servos", "..\..\..\wilderness\Meadow.Foundation\Source\Meadow.Foundation.Libraries_and_Frameworks\Servos\Driver\Servos.csproj", "{C7AFA771-2904-4DAC-8FAD-BDA3BA37A141}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,6 +135,12 @@ Global
 		{7F19BCBF-C0AC-4AD1-AB3A-1E828FCC1AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F19BCBF-C0AC-4AD1-AB3A-1E828FCC1AE2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7F19BCBF-C0AC-4AD1-AB3A-1E828FCC1AE2}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C7AFA771-2904-4DAC-8FAD-BDA3BA37A141}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7AFA771-2904-4DAC-8FAD-BDA3BA37A141}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7AFA771-2904-4DAC-8FAD-BDA3BA37A141}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C7AFA771-2904-4DAC-8FAD-BDA3BA37A141}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7AFA771-2904-4DAC-8FAD-BDA3BA37A141}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7AFA771-2904-4DAC-8FAD-BDA3BA37A141}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -152,5 +160,6 @@ Global
 		{0F9AC349-7109-4E88-A536-803896B3A679} = {97FB8F53-B0DF-48EA-85FE-8150B0AF7F1B}
 		{C502F37D-7151-432A-A15A-F4A1F3EB7D8D} = {97FB8F53-B0DF-48EA-85FE-8150B0AF7F1B}
 		{7F19BCBF-C0AC-4AD1-AB3A-1E828FCC1AE2} = {97FB8F53-B0DF-48EA-85FE-8150B0AF7F1B}
+		{C7AFA771-2904-4DAC-8FAD-BDA3BA37A141} = {97FB8F53-B0DF-48EA-85FE-8150B0AF7F1B}
 	EndGlobalSection
 EndGlobal
