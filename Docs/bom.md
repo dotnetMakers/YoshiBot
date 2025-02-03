@@ -20,9 +20,16 @@ You need 1 DS3218 servo for each driven motor.
 | PWM Generator | PCA9685-based | ?? | $7 | [Amazon](https://amzn.to/4gRtkUQ) | <img width="100" src="Images/pwm-generator.png" /> |
 | Battery Adapter | n/a | Milwaukee M12 | $9 | [Amazon](https://amzn.to/4fLFsFf) | <img width="100" src="Images/battery-adapter.png" /> |
 | Steering Servo | DS3218MG (MS24) | Metal gear servo | $12.50 | [Amazon](https://amzn.to/4jsscsl) | <img width="100" src="Images/ds3218.png" /> |
+| 2020 Aluminum Extrusion | 150mm length | T-Slot Aluminum | $3.00 | https://amzn.to/4gp7U09 | <img width="100" src="Images/2020-extruded.png" /> |
+| 2020 Aluminum Extrusion | 75mm length | T-Slot Aluminum | $3.00 | https://amzn.to/4gp7U09 | <img width="100" src="Images/2020-extruded.png" /> |
+| 2020 90-degree Inside bracket | | | $1.30 | https://amzn.to/40KCSKa | <img width="100" src="Images/inside-corner-bracket.png" /> |
+| 4mm steel rod | | | $0.90 | https://amzn.to/42D0dQy | <img width="100" src="Images/4mm-rod.png" /> |
+| 4mm bearing | 684-2z| bearing | $0.50 | [Amazon](https://amzn.to/4hDLLMA) | <img width="100" src="Images/684-2z-bearing.png" /> |
+| 4mm collar | | 4mm shaft collar| $0.90 | [Amazon](https://amzn.to/42AMYQB) | <img width="100" src="Images/4mm-collar.png" /> |
 | Self-tapping screw | n/a | M1.7 x 6mm | | [Amazon]
 | Machine screw | n/a | M3 x 16mm | | [Amazon]
-| Nut | | n/a M3 | | [Amazon]
+| Nut | | n/a M3 | | [Amazon](https://amzn.to/4hGeAb0) | <img width="100" src="Images/m3-nut.png" /> |
+
 ## Drive Motor Assembly
 
 Drive motor assemblies provide drive and steering for a rover.  Quantity required depends on configuration.
