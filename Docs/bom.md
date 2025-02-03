@@ -26,6 +26,7 @@ You need 1 DS3218 servo for each driven motor.
 | 4mm steel rod | | | $0.90 | https://amzn.to/42D0dQy | <img width="100" src="Images/4mm-rod.png" /> |
 | 4mm bearing | 684-2z| bearing | $0.50 | [Amazon](https://amzn.to/4hDLLMA) | <img width="100" src="Images/684-2z-bearing.png" /> |
 | 4mm collar | | 4mm shaft collar| $0.90 | [Amazon](https://amzn.to/42AMYQB) | <img width="100" src="Images/4mm-collar.png" /> |
+| Heat-set insert | n/a | M3 threaded insert | $0.05 | [Amazon](https://amzn.to/40W5QrZ) | <img width="100" src="Images/m3-insert.png" /> |
 | Self-tapping screw | n/a | M1.7 x 6mm | | [Amazon]
 | Machine screw | n/a | M3 x 16mm | | [Amazon]
 | Nut | | n/a M3 | | [Amazon](https://amzn.to/4hGeAb0) | <img width="100" src="Images/m3-nut.png" /> |
