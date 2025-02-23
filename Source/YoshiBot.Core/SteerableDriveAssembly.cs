@@ -1,9 +1,9 @@
 ﻿using Meadow.Peripherals.Motors;
 using Meadow.Peripherals.Servos;
 
-namespace YoshiBot.YoshiPi;
+namespace YoshiBot.Core;
 
-public class SteerableDriveAssembly
+public class SteerableDriveAssembly : ISteerableDriveAssembly
 {
     public IVariableSpeedMotor DriveMotor { get; }
     public IAngularServo SteeringServo { get; }

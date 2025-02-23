@@ -1,6 +1,7 @@
 ﻿using Meadow.Hardware;
 using Meadow.Peripherals;
 using Meadow.Peripherals.Motors;
+using Meadow.Units;
 
 namespace YoshiBot.YoshiPi;
 
@@ -33,6 +34,10 @@ public partial class Drv8833
         public RotationDirection Direction => throw new NotImplementedException();
 
         public bool IsMoving => throw new NotImplementedException();
+
+        public AngularVelocity MaxVelocity => throw new NotImplementedException();
+
+        public event EventHandler<bool>? StateChanged;
 
         /// <inheritdoc/>
         public async Task Run(RotationDirection direction, float speed = 100, CancellationToken cancellationToken = default)
@@ -89,6 +94,11 @@ public partial class Drv8833
             return Run(direction, 100, cancellationToken);
         }
 
+        public Task Run(RotationDirection direction, AngularVelocity angularVelocity, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task RunFor(TimeSpan runTime, RotationDirection direction, float speed = 100, CancellationToken cancellationToken = default)
         {
             _ = Run(direction, speed, cancellationToken);
@@ -101,6 +111,11 @@ public partial class Drv8833
             _ = Run(direction, 100f, cancellationToken);
             await Task.Delay(runTime);
             _ = Stop();
+        }
+
+        public Task RunFor(TimeSpan runTime, RotationDirection direction, AngularVelocity angularVelocity, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
         }
 
         public Task Stop(CancellationToken cancellationToken = default)

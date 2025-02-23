@@ -29,7 +29,7 @@ public partial class Drv8833
 
     public Drv8833(Channel? channel1, Channel? channel2)
     {
-        Initialize(channel1, Channel2);
+        Initialize(channel1, channel2);
     }
 
     private void Initialize(Channel? channel1, Channel? channel2)

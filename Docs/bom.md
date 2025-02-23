@@ -30,6 +30,9 @@ You need 1 DS3218 servo for each driven motor.
 | Self-tapping screw | n/a | M1.7 x 6mm | | [Amazon]
 | Machine screw | n/a | M3 x 16mm | | [Amazon]
 | Nut | | n/a M3 | | [Amazon](https://amzn.to/4hGeAb0) | <img width="100" src="Images/m3-nut.png" /> |
+| Perf Board || 9x15cm prototype perf board | $3 | [Amazon](https://amzn.to/3QvwrGh) | <img width="100" src="Images/perf-board.png" /> |
+| Display | SSD1306 | 128x64 I2C Display | $3 | [Amazon](https://amzn.to/3EQHQ0Q) | <img width="100" src="Images/i2c-display.png" /> |
+| DC-DC Converter | LM2596 | Adjustable 12V to 5V converter | $3 | [Amazon](https://amzn.to/43b64gi) | <img width="100" src="Images/buck-converter.png" /> |
 
 ## Drive Motor Assembly
 
