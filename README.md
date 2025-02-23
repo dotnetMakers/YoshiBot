@@ -1,5 +1,7 @@
 # YoshiBot
 
+<img width="600" align="center" src="Docs/Images/yoshibot-fwd-1.jpg" />
+
 The YoshiBot is an open-source, modular, robotic rover learning platform driven by a Raspberry Pi Zero 2W.  The goal is to create a low-cost, configurable kit that allows anyone to assemble a wheeled rover for a wide variety of applications.
 
 The current goals are to create chassis configurations for:
