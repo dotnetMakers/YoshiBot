@@ -12,9 +12,9 @@ public partial class Drv8833
         // since the motor doesn't move at < 0.3 duty cycle, scale the request from this floor to a maximum
         private const float MinimumDutyCycle = 0.1f;
 
-        private IPwmPort pwm1;
-        private IPwmPort pwm2;
-        private bool invertDirection;
+        private readonly IPwmPort pwm1;
+        private readonly IPwmPort pwm2;
+        private readonly bool invertDirection;
 
         /// <summary>
         /// Initializes a new instance of the DRV8833 motor driver.
@@ -22,20 +22,21 @@ public partial class Drv8833
         /// <param name="pwm1">First PWM port for motor control</param>
         /// <param name="pwm2">Second PWM port for motor control</param>
         /// <param name="invertDirection">Optional parameter to invert the motor direction. Default is false.</param>
-        public Channel(IPwmPort pwm1, IPwmPort pwm2, bool invertDirection = false)
+        public Channel(IPwmPort pwm1, IPwmPort pwm2, AngularVelocity maxVelocity, bool invertDirection = false)
         {
             this.invertDirection = invertDirection;
             this.pwm1 = pwm1;
             this.pwm2 = pwm2;
 
             this.pwm1.DutyCycle = this.pwm2.DutyCycle = 0;
+            MaxVelocity = maxVelocity;
         }
 
-        public RotationDirection Direction => throw new NotImplementedException();
+        public RotationDirection Direction { get; private set; }
 
         public bool IsMoving => throw new NotImplementedException();
 
-        public AngularVelocity MaxVelocity => throw new NotImplementedException();
+        public AngularVelocity MaxVelocity { get; private set; }
 
         public event EventHandler<bool>? StateChanged;
 
@@ -96,7 +97,10 @@ public partial class Drv8833
 
         public Task Run(RotationDirection direction, AngularVelocity angularVelocity, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var speed = angularVelocity.RevolutionsPerMinute / MaxVelocity.RevolutionsPerMinute;
+            if (speed > 1) speed = 1;
+            speed *= 100;
+            return Run(direction, (float)speed, cancellationToken);
         }
 
         public async Task RunFor(TimeSpan runTime, RotationDirection direction, float speed = 100, CancellationToken cancellationToken = default)

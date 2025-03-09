@@ -6,6 +6,5 @@ namespace YoshiBot.Core;
 public interface IYoshiBotHardware : IMeadowAppEmbeddedHardware
 {
     IPixelDisplay? Display { get; }
-    ISteerableDriveAssembly LeftDriveAssembly { get; }
-    ISteerableDriveAssembly RightDriveAssembly { get; }
+    SteerableDrivePair FrontDrivePair { get; }
 }

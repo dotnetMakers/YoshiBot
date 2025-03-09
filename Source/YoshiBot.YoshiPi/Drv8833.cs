@@ -1,4 +1,5 @@
 ﻿using Meadow.Hardware;
+using Meadow.Units;
 
 namespace YoshiBot.YoshiPi;
 
@@ -10,18 +11,18 @@ public partial class Drv8833
     public Channel? Channel1 { get; private set; }
     public Channel? Channel2 { get; private set; }
 
-    public Drv8833(IPwmPort? in1, IPwmPort? in2, IPwmPort? in3, IPwmPort? in4)
+    public Drv8833(AngularVelocity maxVelocity, IPwmPort? in1, IPwmPort? in2, IPwmPort? in3, IPwmPort? in4)
     {
         Channel? channel1 = null;
         Channel? channel2 = null;
 
         if (in1 != null && in2 != null)
         {
-            channel1 = new Channel(in1, in2);
+            channel1 = new Channel(in1, in2, maxVelocity);
         }
         if (in3 != null && in4 != null)
         {
-            channel2 = new Channel(in3, in4);
+            channel2 = new Channel(in3, in4, maxVelocity);
         }
 
         Initialize(channel1, channel2);

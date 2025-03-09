@@ -1,88 +1,101 @@
-﻿using Meadow;
+﻿using Meadow.Peripherals;
 using Meadow.Units;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace YoshiBot.Core;
 
-public class MainController
+public class SteerableDrivePair
 {
-    private readonly IYoshiBotHardware _hardware;
-    private readonly DisplayService? _displayService;
+    private readonly ISteerableDriveAssembly _leftDrive;
+    private readonly ISteerableDriveAssembly _rightDrive;
+    private readonly Length _trackWidth;
+    private readonly Angle _maxAngle;
+    private Angle _currentSteerAngle;
 
-    public MainController(IYoshiBotHardware hardware)
+    public SteerableDrivePair(
+        ISteerableDriveAssembly leftDrive,
+        ISteerableDriveAssembly rightDrive,
+        Length trackWidth,
+        Angle maxAngle)
     {
-        _hardware = hardware;
-        if (hardware.Display != null)
-        {
-            _displayService = new DisplayService(hardware.Display);
-        }
+        _leftDrive = leftDrive;
+        _rightDrive = rightDrive;
+        _trackWidth = trackWidth;
+        _maxAngle = maxAngle;
+
+        Stop();
+        Center();
     }
 
-    private SteeringTest _exercise;
-
-    public async Task Run()
+    public void Stop()
     {
-        ulong tick = 0;
-
-        _exercise = new SteeringTest(_hardware);
-
-        _exercise.Run();
-
-        while (true)
-        {
-            tick++;
-            _displayService?.UpdateTick(tick);
-            _exercise.Step();
-
-            Resolver.Log.Info("MainController state machine tick");
-
-            await Task.Delay(1000);
-        }
-    }
-}
-
-public class SteeringTest
-{
-    private readonly IYoshiBotHardware _hardware;
-
-    public SteeringTest(IYoshiBotHardware hardware)
-    {
-        _hardware = hardware;
-
-        _hardware.FrontDrivePair.Stop();
-        _hardware.FrontDrivePair.Center();
+        _leftDrive.DriveMotor.Run(RotationDirection.Clockwise, AngularVelocity.Zero);
+        _leftDrive.DriveMotor.Run(RotationDirection.CounterClockwise, AngularVelocity.Zero);
     }
 
-    public void Run()
+    public void Center()
     {
-        var speed = new AngularVelocity(50, AngularVelocity.UnitType.RevolutionsPerMinute);
+        _leftDrive.SteeringServo.RotateTo(Angle.Zero);
+        _rightDrive.SteeringServo.RotateTo(Angle.Zero);
+        _currentSteerAngle = Angle.Zero;
+    }
 
-        _hardware.FrontDrivePair.SetSpeed(speed);
+    private AngularVelocity _speed;
 
-        int i;
-        for (i = 0; i < 30; i++)
+    public void SetSpeed(AngularVelocity speed)
+    {
+        _speed = speed;
+
+        if (_currentSteerAngle == Angle.Zero)
         {
-            _hardware.FrontDrivePair.Steer(new Angle(i, Angle.UnitType.Degrees));
-            Thread.Sleep(50);
+            _leftDrive.DriveMotor.Run(RotationDirection.Clockwise, _speed);
+            _rightDrive.DriveMotor.Run(RotationDirection.CounterClockwise, _speed);
         }
-        while (true)
+        else
         {
-            for (; i > -30; i--)
-            {
-                _hardware.FrontDrivePair.Steer(new Angle(i, Angle.UnitType.Degrees));
-                Thread.Sleep(50);
+            var results = AckermanCalculator.CalculateOuterWheelFromInner(_trackWidth, _currentSteerAngle);
+
+            var outer = _speed * results.SpeedRatio;
+            var inner = _speed;
+
+            if (_currentSteerAngle.Degrees < 0)
+            { // left turn
+                _leftDrive.DriveMotor.Run(RotationDirection.Clockwise, inner);
+                _rightDrive.DriveMotor.Run(RotationDirection.CounterClockwise, outer);
             }
-            for (; i < 40; i++)
-            {
-                _hardware.FrontDrivePair.Steer(new Angle(i, Angle.UnitType.Degrees));
-                Thread.Sleep(50);
+            else
+            { // right turn
+                _leftDrive.DriveMotor.Run(RotationDirection.Clockwise, outer);
+                _rightDrive.DriveMotor.Run(RotationDirection.CounterClockwise, inner);
             }
         }
     }
 
-    public void Step()
+    public void Steer(Angle innerWheelAngle)
     {
+        if (innerWheelAngle > _maxAngle)
+        {
+            innerWheelAngle = _maxAngle;
+        }
+
+        _currentSteerAngle = innerWheelAngle;
+
+        // TODO: cache these results
+        var results = AckermanCalculator.CalculateOuterWheelFromInner(_trackWidth, _currentSteerAngle);
+
+        if (innerWheelAngle >= Angle.Zero)
+        {
+            // right turn
+            _leftDrive.SteeringServo.RotateTo(results.OuterWheelAngle);
+            _rightDrive.SteeringServo.RotateTo(innerWheelAngle);
+        }
+        else
+        {
+            // left turn
+            _leftDrive.SteeringServo.RotateTo(innerWheelAngle);
+            _rightDrive.SteeringServo.RotateTo(results.OuterWheelAngle);
+        }
+
+        SetSpeed(_speed);
     }
 }
 /*

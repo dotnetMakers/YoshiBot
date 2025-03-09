@@ -11,16 +11,18 @@ namespace YoshiBot.YoshiPi;
 
 public class YoshiBotProto : IYoshiBotHardware
 {
-    private II2cBus _i2cBus;
-    private Pca9685 _pwmGenerator;
-    private Drv8833 _motorDrive;
-    private Ds3218 _leftServo;
-    private Ds3218 _rightServo;
+    private readonly II2cBus _i2cBus;
+    private readonly Pca9685 _pwmGenerator;
+    private readonly Drv8833 _motorDrive;
+    private readonly Ds3218 _leftServo;
+    private readonly Ds3218 _rightServo;
 
     private readonly RaspberryPi _computeModule;
 
     /// <inheritdoc/>
     public IMeadowDevice ComputeModule => _computeModule;
+
+    public SteerableDrivePair FrontDrivePair { get; }
 
     public YoshiBotProto(RaspberryPi computeModule)
     {
@@ -38,11 +40,13 @@ public class YoshiBotProto : IYoshiBotHardware
         _motorDrive = new Drv8833(
             new Drv8833.Channel(
                 _pwmGenerator.Pins.LED0.CreatePwmPort(frequency),
-                _pwmGenerator.Pins.LED1.CreatePwmPort(frequency)
+                _pwmGenerator.Pins.LED1.CreatePwmPort(frequency),
+                new AngularVelocity(130, AngularVelocity.UnitType.RevolutionsPerMinute)
                 ),
             new Drv8833.Channel(
                 _pwmGenerator.Pins.LED2.CreatePwmPort(frequency),
-                _pwmGenerator.Pins.LED3.CreatePwmPort(frequency)
+                _pwmGenerator.Pins.LED3.CreatePwmPort(frequency),
+                new AngularVelocity(130, AngularVelocity.UnitType.RevolutionsPerMinute)
                 )
         );
 
@@ -60,6 +64,13 @@ public class YoshiBotProto : IYoshiBotHardware
 
         Resolver.Log.Info($"Left DA: {LeftDriveAssembly} {LeftDriveAssembly.DriveMotor} {LeftDriveAssembly.SteeringServo}");
         Resolver.Log.Info($"Right DA: {RightDriveAssembly} {RightDriveAssembly.DriveMotor} {RightDriveAssembly.SteeringServo}");
+
+
+        FrontDrivePair = new SteerableDrivePair(
+            LeftDriveAssembly,
+            RightDriveAssembly,
+            new Length(195, Length.UnitType.Millimeters),
+            new Angle(25, Angle.UnitType.Degrees));
     }
 
     public IPixelDisplay? Display { get; }
